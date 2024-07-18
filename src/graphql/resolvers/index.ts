@@ -36,8 +36,8 @@ export const resolvers = {
     Mutation: {
         addVehicle: async (_: any, args: any) => {
             try {
-                const query = 'INSERT INTO vehicles (make, model, year, price, dealership_id) VALUES ($1, $2, $3, $4, $5) RETURNING *';
-                const values = [args.make, args.model, args.year, args.price, args.dealership_id];
+                const query = 'INSERT INTO vehicles (make, model, year, price, vin, dealership_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
+                const values = [args.make, args.model, args.year, args.price, args.vin, args.dealership_id];
                 const res = await client.query(query, values);
                 return res.rows[0];
             } catch (err) {
@@ -46,8 +46,8 @@ export const resolvers = {
         },
         updateVehicle: async (_: any, args: any) => {
             try {
-                const query = 'UPDATE vehicles SET make = $1, model = $2, year = $3, price = $4 WHERE id = $5 RETURNING *';
-                const values = [args.make, args.model, args.year, args.price, args.id];
+                const query = 'UPDATE vehicles SET make = $1, model = $2, year = $3, price = $4, vin = $5 WHERE id = $6 RETURNING *';
+                const values = [args.make, args.model, args.year, args.price, args.vin, args.id];
                 const res = await client.query(query, values);
                 if (res.rowCount === 0) {
                     throw new NotFoundError(`Vehicle Id: [${args.id}] not found.`);

@@ -21,6 +21,7 @@ exports.up = (pgm) => {
     model: { type: "varchar(50)", notNull: true },
     year: { type: "integer", notNull: true },
     price: { type: "decimal(10,2)", notNull: true },
+    vin: { type: "varchar(50)", notNull: true },
     dealership_id: { type: "integer", references: '"dealerships"' },
   });
 
@@ -44,6 +45,8 @@ exports.up = (pgm) => {
   pgm.createIndex("vehicles", "make");
   pgm.createIndex("vehicles", "model");
   pgm.createIndex("vehicles", "year");
+  pgm.createIndex("vehicles", "vin", { unique: true });
+  pgm.createIndex("customers", "email", { unique: true });
   pgm.createIndex("customers", "last_name");
   pgm.createIndex("sales", ["vehicle_id", "customer_id"], { unique: true });
 
@@ -58,9 +61,9 @@ exports.up = (pgm) => {
      (1,'customer 1','customer last 1','cust1@gmail.com','123456789'),
      (2,'customer 2','customer last 2','cust2@gmail.com','987654321');`);
 
-  pgm.sql(`INSERT INTO vehicles (id, make,model,"year",price,dealership_id) VALUES
-     (1,'hyundai','sonata',2020,23000.00,2),
-     (2,'toyota','corolla',2020,25000.00,5);`);
+  pgm.sql(`INSERT INTO vehicles (id, make,model,"year",price,vin,dealership_id) VALUES
+     (1,'hyundai','sonata',2020,23000.00,'vin1',2),
+     (2,'toyota','corolla',2020,25000.00,'vin2',5);`);
 
   pgm.sql(`INSERT INTO sales (id, vehicle_id,customer_id,sale_date,price) VALUES
 	 (1,1,1,'2024-06-01',23000.00),
@@ -83,9 +86,11 @@ exports.down = (pgm) => {
   pgm.sql(`DELETE FROM dealerships WHERE id IN (1,4);`);
 
   pgm.dropIndex("customers", "last_name");
+  pgm.dropIndex("customers", "email");
   pgm.dropIndex("vehicles", "year");
   pgm.dropIndex("vehicles", "model");
   pgm.dropIndex("vehicles", "make");
+  pgm.dropIndex("vehicles", "vin");
   pgm.dropTable("sales");
   pgm.dropTable("customers");
   pgm.dropTable("vehicles");

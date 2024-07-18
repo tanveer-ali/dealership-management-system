@@ -14,6 +14,7 @@ export const typeDefs = gql`
     model: String!
     year: Int!
     price: Float!
+    vin: String!
     dealership_id: ID!
   }
 
@@ -40,8 +41,8 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    addVehicle(make: String!, model: String!, year: Int!, price: Float!, dealership_id: ID!): Vehicle
-    updateVehicle(id: ID!, make: String, model: String, year: Int, price: Float): Vehicle
+    addVehicle(make: String!, model: String!, year: Int!, price: Float!, vin: String!, dealership_id: ID!): Vehicle
+    updateVehicle(id: ID!, make: String, model: String, year: Int, price: Float, vin: String!): Vehicle
     recordSale(vehicle_id: ID!, customer_id: ID!, sale_date: String!, price: Float!): Sale
   }
 

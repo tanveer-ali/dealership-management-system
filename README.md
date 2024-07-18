@@ -219,16 +219,15 @@ query {
 
 **Request:**
 
-```
-
-graphql
+```graphql
 mutation {
-  addVehicle(make: "Toyota", model: "Corolla", year: 2020, price: 20000, dealership_id: 4) {
+  addVehicle(make: "Honda", model: "Accord", year: 2020, price: 20000.00, vin: "vin3", dealership_id: 3) {
     id
     make
     model
     year
     price
+    vin
     dealership_id
   }
 }
@@ -240,12 +239,13 @@ mutation {
 {
   "data": {
     "addVehicle": {
-      "id": "2",
-      "make": "Toyota",
-      "model": "Corolla",
+      "id": "3",
+      "make": "Honda",
+      "model": "Accord",
       "year": 2020,
       "price": 20000,
-      "dealership_id": "4"
+      "vin": "vin3",
+      "dealership_id": "3"
     }
   }
 }
@@ -259,12 +259,13 @@ mutation {
 
 ```graphql
 mutation {
-  updateVehicle(id: "2", make: "Toyota", model: "Camry", year: 2021, price: 22000) {
+  updateVehicle(id: "2", make: "Toyota", model: "Camry", year: 2021, price: 22000.00, vin: "vin2") {
     id
     make
     model
     year
     price
+    vin
   }
 }
 ```
@@ -279,7 +280,8 @@ mutation {
       "make": "Toyota",
       "model": "Camry",
       "year": 2021,
-      "price": 22000
+      "price": 22000,
+      "vin": "vin2"
     }
   }
 }
@@ -293,7 +295,7 @@ mutation {
 
 ```graphql
 mutation {
-  recordSale(vehicle_id: 1, customer_id: 2, sale_date: "2023-07-14", price: 20000) {
+  recordSale(vehicle_id: 1, customer_id: 2, sale_date: "2024-07-14", price: 20000.00) {
     id
     vehicle_id
     customer_id
@@ -309,10 +311,10 @@ mutation {
 {
   "data": {
     "recordSale": {
-      "id": "2",
+      "id": "3",
       "vehicle_id": "1",
       "customer_id": "2",
-      "sale_date": "1689307200000",
+      "sale_date": "1720915200000",
       "price": 20000
     }
   }
