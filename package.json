@@ -1,0 +1,28 @@
+{
+  "name": "dealership-management-system",
+  "version": "1.0.0",
+  "description": "Backend system to manage operations for automotive dealerships",
+  "main": "dist/server.js",
+  "scripts": {
+    "compile": "tsc",
+    "start": "npm run compile && node-pg-migrate up && node ./dist/server.js",
+    "start:local": "ts-node -r dotenv/config ./src/server.ts",
+    "migrate": "node-pg-migrate"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.10.4",
+    "dotenv": "^16.4.5",
+    "graphql": "^16.9.0",
+    "graphql-tag": "^2.12.6",
+    "pg": "^8.12.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "@types/pg": "^8.11.6",
+    "node-pg-migrate": "^7.5.2",
+    "ts-node": "^10.0.0",
+    "typescript": "^5.5.3"
+  },
+  "author": "Tanveer Ali",
+  "license": "MIT"
+}

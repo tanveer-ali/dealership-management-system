@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=secretpassword
+      - POSTGRES_USER=dms_user
+      - POSTGRES_DB=dms_db
+  
+  dealer-service:
+    depends_on:
+      - postgres
+    build: .
+    ports:
+      - 4000:4000
+    environment:
+      - DATABASE_URL=postgresql://dms_user:secretpassword@postgres:5432/dms_db
+      - PGUSER=dms_user
+      - PGPASSWORD=secretpassword
+      - PGHOST=postgres
+      - PGPORT=5432
+      - PGDATABASE=dms_db
+
